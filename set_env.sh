@@ -1,8 +1,12 @@
 #!/bin/bash
 
 case "$1" in
-  "build")
+  "buildno")
     docker compose build --no-cache
+    docker compose up -d
+    ;;
+  "build")
+    docker compose build 
     docker compose up -d
     ;;
   "up")
