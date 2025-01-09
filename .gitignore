@@ -12,6 +12,7 @@ media/
 venv/
 env/
 migrations/
+./backend/back_myblog/back_myblog/read_env.py
 
 # エディタ/IDE
 .vscode/
