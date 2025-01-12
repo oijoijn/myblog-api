@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui.css" rel="stylesheet">
+</head>
+<body>
+    <div id="swagger-ui"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-standalone-preset.js"></script>
+    <script>
+        window.onload = () => {
+            const ui = SwaggerUIBundle({
+                url: "/schema/",
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                layout: "StandaloneLayout",
+                requestInterceptor: (request) => {
+                    // JWTトークンをAuthorizationヘッダーに追加
+                    const token = localStorage.getItem('jwt_token');
+                    if (token) {
+                        request.headers['Authorization'] = `Bearer ${token}`;
+                    }
+                    return request;
+                }
+            });
+
+            // トークン設定ボタン
+            const authButton = document.createElement('button');
+            authButton.textContent = 'Set JWT Token';
+            authButton.style = 'margin: 10px; padding: 5px 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;';
+            authButton.onclick = () => {
+                const token = prompt('Enter your JWT token:');
+                if (token) {
+                    localStorage.setItem('jwt_token', token);
+                    alert('Token set successfully!');
+                }
+            };
+            document.body.insertBefore(authButton, document.getElementById('swagger-ui'));
+
+            // トークン削除ボタン
+            const clearButton = document.createElement('button');
+            clearButton.textContent = 'Clear JWT Token';
+            clearButton.style = 'margin: 10px; padding: 5px 10px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;';
+            clearButton.onclick = () => {
+                localStorage.removeItem('jwt_token');
+                alert('Token cleared successfully!');
+            };
+            document.body.insertBefore(clearButton, document.getElementById('swagger-ui'));
+        };
+    </script>
+</body>
+</html>

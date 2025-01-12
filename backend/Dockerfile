@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     tzdata \
     sudo \
+    tree \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -30,18 +31,3 @@ WORKDIR /workspace/back_myblog
 
 # ベース環境の Python ライブラリをコピー
 COPY --from=base /usr/local /usr/local
-
-# # ユーザー作成と権限設定
-# RUN groupadd -r backend-django && useradd -r -g backend-django -m backend-django
-
-# # backend-django ユーザーに sudo 権限を付与
-# RUN echo "backend-django ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-# # 明示的にディレクトリを作成し、所有者を設定
-# RUN mkdir -p /workspace/back_myblog && chown backend-django:backend-django /workspace/back_myblog
-
-# # ビルドされたコードをコピー
-# COPY --chown=backend-django:backend-django --from=build /workspace/back_myblog /workspace/back_myblog
-
-# # backend-django ユーザーに切り替え
-# USER backend-django
