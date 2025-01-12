@@ -9,8 +9,8 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)  # 記事のタイトル
     created_at = models.DateField(auto_now_add=True)  # 作成日（時間なし）
     updated_at = models.DateTimeField(auto_now=True)  # 更新日
-    html_file = models.CharField(max_length=255)  # 記事に対応するHTMLファイルのパス
-    img_file = models.CharField(max_length=255)  # 記事の画像に対するpath
+    tsx_path = models.CharField(max_length=255)  # 記事に対応するHTMLファイルのパス
+    img_path = models.CharField(max_length=255)  # 記事の画像に対するpath
 
     def __str__(self):
         return self.title

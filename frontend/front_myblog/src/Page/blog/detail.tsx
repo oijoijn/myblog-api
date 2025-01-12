@@ -1,23 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBlogDetail } from '../../config/endpoint.tsx';
-import { Blog } from '../../config/interface.tsx';
-import { Typography, Box} from '@mui/material';
+import { BlogDetailResponse } from '../../config/interface.tsx';
+import { Typography, Box, CircularProgress } from '@mui/material';
 
 export const BlogDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const [blog, setBlog] = useState<Blog | null>(null);
+    const [blog, setBlog] = useState<BlogDetailResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [DynamicContent, setDynamicContent] = useState<React.ComponentType | null>(null);
 
     useEffect(() => {
         if (id) {
-            getBlogDetail(parseInt(id, 10)) // idを数値に変換
+            getBlogDetail(parseInt(id, 10))
                 .then((data) => setBlog(data))
                 .catch((error) => setError(error.message))
                 .finally(() => setLoading(false));
         }
     }, [id]);
+
+    useEffect(() => {
+        if (blog?.tsx_path) {
+            import(/* @vite-ignore */ `/src/templates/${blog.tsx_path}`)
+                .then((module) => {
+                    setDynamicContent(() => module.default);
+                })
+                .catch((error) => {
+                    console.error("Failed to load dynamic content:", error);
+                    setError("Failed to load blog content.");
+                });
+        }
+    }, [blog?.tsx_path]);
 
     if (loading) return <div>Loading blog detail...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -25,16 +39,32 @@ export const BlogDetail: React.FC = () => {
 
     return (
         <Box padding={3}>
-            <Typography component="h1" gutterBottom>
-                {blog.title}
+            <Typography variant="h2" gutterBottom align="center">
+                {blog?.title}
             </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-                Created at: {blog.created_at}
+            <Typography variant="h6" gutterBottom align="center">
+                作成日 : {blog?.created_at}
             </Typography>
-            <img src={blog.img_file} alt='表示できません' style={{ maxWidth: 'auto', height: 'auto', marginBottom: '16px' }} />
-            <Typography variant="body1">
-                {blog.html_file}
+            <img src={blog?.img_path} alt="表示できません" style={{ height: 'auto', marginBottom: '16px' }} />
+
+            <Typography variant="h6" gutterBottom align="center">
+                コメント:
             </Typography>
+
+            {/* 動的に読み込んだコンポーネントをレンダリング */}
+            {DynamicContent && (
+                <Suspense fallback={<CircularProgress />}>
+                    {React.createElement(DynamicContent)}
+                </Suspense>
+            )}
+
+            {blog?.comments.map((comment) => (
+                <Box key={comment.created_at} marginBottom={2} padding={2} border={1} borderColor="grey.500">
+                    <Typography variant="subtitle2">投稿者: {comment.owner}</Typography>
+                    <Typography variant="body1">{comment.comment}</Typography>
+                    <Typography variant="caption">投稿日: {comment.created_at}</Typography>
+                </Box>
+            ))}
         </Box>
     );
 };

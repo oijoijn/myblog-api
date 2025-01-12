@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getBlogsList } from "../../config/endpoint.tsx";
 import { Blog } from "../../config/interface.tsx";
 import { useNavigate } from 'react-router-dom';
-import { Card, CardActionArea, CardMedia, CardContent, Typography, Button, CardActions } from '@mui/material';
+import { Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material';
 
 export const BlogList: React.FC = () => {
     const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -34,7 +34,7 @@ export const BlogList: React.FC = () => {
                             <CardActionArea onClick={() => handleImageClick(blog.id)}>
                                 <CardMedia
                                     component="img"
-                                    image={blog.img_file}
+                                    image={blog.img_path}
                                     alt={blog.title}
                                     style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}
                                 />
@@ -44,8 +44,8 @@ export const BlogList: React.FC = () => {
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                         Created at: {blog.created_at}
-                                        HTML File: {blog.html_file}
-                                        IMG File: {blog.img_file}
+                                        TSX PATH: {blog.tsx_path}
+                                        IMG PATH: {blog.img_path}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

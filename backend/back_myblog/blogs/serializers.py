@@ -7,7 +7,7 @@ class BlogListSeriaizer(serializers.ModelSerializer):
     '''
     class Meta:
         model = models.Blog
-        fields = ['id', 'title', 'created_at', 'html_file', 'img_file']
+        fields = ['id', 'title', 'created_at', 'tsx_path', 'img_path']
 
 class BlogDetailSeriaizer(serializers.ModelSerializer):
     '''
@@ -16,7 +16,7 @@ class BlogDetailSeriaizer(serializers.ModelSerializer):
     comments = serializers.SerializerMethodField()
     class Meta:
         model = models.Blog
-        fields = ['id', 'title', 'created_at', 'html_file', 'img_file', 'comments']
+        fields = ['id', 'title', 'created_at', 'tsx_path', 'img_path', 'comments']
 
     def get_comments(self, obj):
         comments = obj.comments.all().order_by('-created_at')  # 最新のコメントを上に表示
