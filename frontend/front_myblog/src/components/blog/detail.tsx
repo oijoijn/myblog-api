@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBlogDetail } from '../../config/endpoint.tsx';
-import { BlogDetailResponse } from '../../config/interface.tsx';
+import { getBlogDetail } from '../config/endpoint.tsx';
+import { BlogDetailResponse } from '../config/interface.tsx';
 import { Typography, Box, CircularProgress } from '@mui/material';
 
 export const BlogDetail: React.FC = () => {
