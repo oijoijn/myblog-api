@@ -20,12 +20,15 @@ export const useLogin = () => {
         setUser({ ...user, [name]: value })
     }
 
-    const onClickLogin = async () => {
+    const onClickLogin = async (username: string, password: string) => {
         try {
-            const response = await postApiToken(user);
+            const response = await postApiToken({
+                username: username,
+                password: password,
+            });
             console.log('Login successful:', response);
-            login(user.username, user.password)
-            setLoginUser({ username: user.username })
+            login(username, password)
+            setLoginUser({ username: username })
             navigate('/');
         } catch (error) {
             console.error('Login failed:', error);
@@ -33,5 +36,5 @@ export const useLogin = () => {
         }
     }
 
-    return { handleChange, onClickLogin };
+    return { user, handleChange, onClickLogin };
 }
