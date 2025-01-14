@@ -26,3 +26,24 @@ export interface Blog_Detail {
 }
 
 export type BlogDetailResponse = Blog_Detail;
+
+export interface Signup {
+    username: string;
+    password1: string;
+    password2: string;
+}
+
+export type SignupRequest = Signup;
+
+export interface Login {
+    username: string;
+    password: string;
+}
+
+export type LoginRequest = Login;
+
+export interface LoginUser {
+    username: string;
+}
+
+export type StateLoginUser = LoginUser;
