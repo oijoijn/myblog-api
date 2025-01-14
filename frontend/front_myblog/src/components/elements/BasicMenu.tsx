@@ -1,37 +1,12 @@
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LoginUserContext } from '../providers/LoginUserContext';
+import { useMenu } from '../hooks/useMenu';
 
 export default function BasicMenu() {
-    const { loginUser } = useContext(LoginUserContext);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const navigate = useNavigate();
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const handleClickBloglist = () => {
-        navigate('/')
-        setAnchorEl(null);
-    }
-    const handleClickLogout = () => {
-        navigate('/')
-        setAnchorEl(null);
-    }
-    const handleClickSignup = () => {
-        navigate('/signup')
-        setAnchorEl(null);
-    }
-    const handleClickLogin = () => {
-        navigate('/login')
-        setAnchorEl(null);
-    }
+    const
+        { loginUser, anchorEl, open, handleClick, handleClose, handleClickLogout, handleClickSignup, handleClickLogin }
+            = useMenu()
 
     return (
         <div>
@@ -54,10 +29,10 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClickBloglist}>Home</MenuItem>
-                <MenuItem onClick={handleClickLogout}>Logout</MenuItem>
-                <MenuItem onClick={handleClickSignup}>Signup</MenuItem>
-                <MenuItem onClick={handleClickLogin}>Login</MenuItem>
+                <MenuItem onClick={handleClickSignup}>新規登録</MenuItem>
+                <MenuItem onClick={handleClickLogin}>ログイン</MenuItem>
+                <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>
+                {/* <MenuItem onClick={handlecookie}>cookie</MenuItem> */}
             </Menu>
         </div>
     );
