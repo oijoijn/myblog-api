@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
-import { getBlogsList } from "../../config/endpoint.tsx";
-import { Blog } from "../../config/interface.tsx";
+import { getBlogsList } from '../config/endpoint.tsx';
+import { Blog } from '../config/interface.tsx';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material';
 

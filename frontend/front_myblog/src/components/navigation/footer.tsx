@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
             <Container maxWidth="md">
                 <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="caption">
-                        ©2025 engr-sng
+                        ©2025 技術探検
                     </Typography>
                 </Box>
             </Container>
