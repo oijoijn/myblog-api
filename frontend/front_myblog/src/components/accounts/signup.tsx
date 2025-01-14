@@ -1,6 +1,8 @@
 import { Box, Container, Typography, TextField, Button } from '@mui/material'
+import { useSignup } from '../hooks/useSignup'
 
 export const Signup = () => {
+  const { SignupUser, handleChange, handleSignup } = useSignup()
   return (
     <>
       <Container maxWidth='xs'>
@@ -21,6 +23,7 @@ export const Signup = () => {
             name="username"
             label="ニックネーム"
             id="username"
+            onChange={handleChange}
           />
           <TextField
             required
@@ -29,6 +32,7 @@ export const Signup = () => {
             label="パスワード"
             type="password"
             id="password1"
+            onChange={handleChange}
           />
           <TextField
             required
@@ -37,11 +41,13 @@ export const Signup = () => {
             label="確認用パスワード"
             type="password"
             id="password2"
+            onChange={handleChange}
           />
           <Button
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={() => handleSignup(SignupUser.username, SignupUser.password1, SignupUser.password2)}
           >
             登録
           </Button>
