@@ -1,37 +1,9 @@
 import { Box, Container, Typography, TextField, Button } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
-import { LoginRequest } from '../config/interface'
-import { useContext, useState } from 'react'
-import { postApiToken } from '../config/endpoint'
-import { LoginUserContext } from '../providers/LoginUserContext'
+import { Link } from 'react-router-dom'
+import { useLogin } from '../hooks/useLogin';
 
 export const Login = () => {
-
-  const { setLoginUser } = useContext(LoginUserContext)
-  const navigate = useNavigate();
-
-  const [user, setUser] = useState<LoginRequest>({
-    username: '',
-    password: '',
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setUser({ ...user, [name]: value })
-  }
-
-  const onClickLogin = async () => {
-    try {
-      const response = await postApiToken(user);
-      console.log('Login successful:', response);
-      localStorage.setItem('token', response.access);
-      setLoginUser({username: user.username})
-      navigate('/');
-    } catch (error) {
-      console.error('Login failed:', error);
-      alert('ログインに失敗しました。');
-    }
-  };
+  const {handleChange, onClickLogin} = useLogin();
 
   return (
     <>
