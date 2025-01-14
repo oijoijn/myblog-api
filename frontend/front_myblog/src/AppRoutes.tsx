@@ -7,20 +7,23 @@ import { Signup } from './components/accounts/signup.tsx'
 import { Login } from './components/accounts/login.tsx';
 import { NotFound } from './components/navigation/NotFound.tsx';
 import { LoginUserProvider } from './components/providers/LoginUserProvider.tsx';
+import { CookiesProvider } from './components/providers/CookiesProvider.tsx';
 
 export const AppRoutes = () => {
     return (
         <>
             <LoginUserProvider>
-                <ButtonAppBar />
-                <Routes>
-                    <Route path='/' element={<BlogList />} />
-                    <Route path='/blogs/:id/detail/' element={<BlogDetail />} />
-                    <Route path='/signup' element={<Signup />} />
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/notfound' element={<NotFound />} />
-                </Routes>
-                <Footer />
+                <CookiesProvider>
+                    <ButtonAppBar />
+                    <Routes>
+                        <Route path='/' element={<BlogList />} />
+                        <Route path='/blogs/:id/detail/' element={<BlogDetail />} />
+                        <Route path='/signup' element={<Signup />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/notfound' element={<NotFound />} />
+                    </Routes>
+                    <Footer />
+                </CookiesProvider>
             </LoginUserProvider>
         </>
     )
