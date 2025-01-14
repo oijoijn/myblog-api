@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginRequest } from './interface';
+import { LoginRequest, SignupRequest } from './interface';
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/', 
@@ -40,9 +40,9 @@ export const getBlogDetail = async (id: number) => {
   }
 };
 
-export const postAccountsSignup = async () => {
+export const postAccountsSignup = async (data: SignupRequest) => {
   try {
-    const response = await apiClient.post('accounts/signup/');
+    const response = await apiClient.post('accounts/signup/', data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
