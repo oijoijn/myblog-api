@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin';
 
 export const Login = () => {
-  const {handleChange, onClickLogin} = useLogin();
+  const { user, handleChange, onClickLogin } = useLogin();
 
   return (
     <>
@@ -40,7 +40,7 @@ export const Login = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={onClickLogin}
+            onClick={() => onClickLogin(user.username, user.password)}
           >
             ログイン
           </Button>
