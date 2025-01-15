@@ -1,10 +1,20 @@
-import { Suspense } from 'react';
-import { Typography, Box, CircularProgress } from '@mui/material';
+import { Suspense, useState } from 'react';
+import { Typography, Box, CircularProgress, TextField, Button } from '@mui/material';
 import { useDetail } from '../hooks/useDetail';
 import React from 'react';
 
 export const BlogDetail: React.FC = () => {
-    const { blog, loading, error, DynamicContent } = useDetail(); // カスタムフックを呼び出し、値を受け取る
+    const { blog, loading, error, DynamicContent, handlePostComment } = useDetail();
+    const [newComment, setNewComment] = useState(''); // BlogDetail内で状態管理
+
+    const handleSubmitComment = () => {
+        if (blog && newComment.trim()) {
+            handlePostComment(newComment);
+            setNewComment('');
+        } else if (!newComment.trim()) {
+            alert('コメントを入力してください。');
+        }
+    };
 
     if (loading) {
         return (
@@ -38,10 +48,6 @@ export const BlogDetail: React.FC = () => {
             <Typography variant="h6" gutterBottom align="center">
                 作成日 : {blog.created_at}
             </Typography>
-            {/* <img src={blog.img_path} alt="表示できません" style={{ height: 'auto', marginBottom: '16px' }} /> */}
-
-
-            {/* 動的に読み込んだコンポーネントをレンダリング */}
             {DynamicContent && (
                 <Suspense fallback={<CircularProgress />}>
                     {React.createElement(DynamicContent)}
@@ -51,7 +57,6 @@ export const BlogDetail: React.FC = () => {
             <Typography variant="h6" gutterBottom align="center">
                 コメント
             </Typography>
-
             {blog.comments.map((comment) => (
                 <Box key={comment.created_at} marginBottom={2} padding={2} border={1} borderColor="grey.500">
                     <Typography variant="subtitle2">投稿者: {comment.owner}</Typography>
@@ -59,6 +64,20 @@ export const BlogDetail: React.FC = () => {
                     <Typography variant="caption">投稿日: {comment.created_at}</Typography>
                 </Box>
             ))}
+
+            <Box mt={3}>
+                <TextField
+                    label="コメント"
+                    multiline
+                    rows={4}
+                    fullWidth
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                />
+                <Button variant="contained" color="primary" onClick={handleSubmitComment} sx={{ mt: 1 }}>
+                    コメントを投稿
+                </Button>
+            </Box>
         </Box>
     );
 };
