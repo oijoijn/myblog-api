@@ -43,9 +43,9 @@ export const BlogList: React.FC = () => {
                                         {blog.title}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                        Created at: {blog.created_at}
-                                        TSX PATH: {blog.tsx_path}
-                                        IMG PATH: {blog.img_path}
+                                        Created at: {blog.created_at}<br />
+                                        TSX PATH: {blog.tsx_path}<br />
+                                        IMG PATH: {blog.img_path}<br />
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

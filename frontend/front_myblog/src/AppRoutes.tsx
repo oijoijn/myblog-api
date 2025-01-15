@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { BlogList } from './components/blog/list.tsx';
 import { BlogDetail } from './components/blog/detail.tsx';
-import ButtonAppBar from './components//navigation/header';
+import Header from './components//navigation/header';
 import Footer from './components/navigation/footer';
 import { Signup } from './components/accounts/signup.tsx'
 import { Login } from './components/accounts/login.tsx';
@@ -14,7 +14,7 @@ export const AppRoutes = () => {
         <>
             <LoginUserProvider>
                 <CookiesProvider>
-                    <ButtonAppBar />
+                    <Header />
                     <Routes>
                         <Route path='/' element={<BlogList />} />
                         <Route path='/blogs/:id/detail/' element={<BlogDetail />} />
