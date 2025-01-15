@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { LoginRequest, SignupRequest } from './interface';
+import { LoginRequest, SignupRequest, CommentRequest } from './interface';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/', 
+  baseURL: 'http://localhost:8000/',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -27,7 +27,7 @@ export const getBlogsList = async () => {
 
 export const getBlogDetail = async (id: number) => {
   try {
-    const response = await apiClient.get(`blogs/${id}/detail/`); 
+    const response = await apiClient.get(`blogs/${id}/detail/`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -61,6 +61,28 @@ export const postApiToken = async (data: LoginRequest) => {
   try {
     const response = await apiClient.post('api/token/', data);
     return response.data; // トークンデータを返す
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error during login:', error.response?.data);
+      throw new Error(error.response?.data?.message || 'Login failed.');
+    } else {
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred.');
+    }
+  }
+};
+
+export const postBlogsCommentsCreate = async (access_token: string, id: number, data: CommentRequest) => {
+  try {
+    const response = await apiClient.post(
+      `blogs/${id}/comments/create/`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`, 
+        },
+      });
+    return response.data; 
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Error during login:', error.response?.data);
