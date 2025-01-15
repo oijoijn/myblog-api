@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import BasicMenu from '../elements/BasicMenu';
 
-export default function ButtonAppBar() {
+export default function Header() {
   const navigate = useNavigate();
   const handleTechExploreClick = () => {
     navigate('/');
