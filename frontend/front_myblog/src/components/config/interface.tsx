@@ -1,10 +1,15 @@
-export interface Comment {
+export interface BlogComment {
     blog: number;
     owner: string;
     comment: string;
     created_at: string;
     updated_at: string;
 }
+
+export interface Comment{
+    comment: string;
+}
+export type CommentRequest = Comment;
 
 export interface Blog {
     id: number;
@@ -22,10 +27,13 @@ export interface Blog_Detail {
     created_at: string;
     tsx_path: string;
     img_path: string;
-    comments: Comment[];
+    comments: BlogComment[];
 }
 
 export type BlogDetailResponse = Blog_Detail;
+
+
+// account
 
 export interface Signup {
     username: string;
