@@ -5,7 +5,7 @@ import React from 'react';
 
 export const BlogDetail: React.FC = () => {
     const { blog, loading, error, DynamicContent, handlePostComment } = useDetail();
-    const [newComment, setNewComment] = useState(''); // BlogDetail内で状態管理
+    const [newComment, setNewComment] = useState(''); 
 
     const handleSubmitComment = () => {
         if (blog && newComment.trim()) {
