@@ -1,49 +1,89 @@
-import React from 'react';
-import { Typography, Box } from '@mui/material';
-import { containerStyle } from '../containerStyle';
+import { Container, Typography, Box, List, Divider, ListItem, ListItemText, Link } from '@mui/material';
+import key_gif from '/images/keybindings/key.gif'
 
-export const keybindings: React.FC = () => {
+const Keybindings: React.FC = () => {
     return (
-        <Box>
+        <Container>
             <Box id='toc'>
                 <Typography variant="h2">目次</Typography>
-                <ul>
-                    <li><a href='#pc-key'>1. パソコンを使いやすくするために</a></li>
-                    <li><a href='#change-key'>2. Change Key</a></li>
-                    <li><a href='#powertoys'>3. PowerToys</a></li>
-                    <li><a href='#autohotkey'>4. AutoHotkey</a></li>
-                    <li><a href='#summary'>5. まとめ</a></li>
-                    <li><a href='#vscode-vim'>番外編. Vscode Vim</a></li>
-                    <li><a href='#chrome-vimium'>番外編. Chrome Vimium</a></li>
-                </ul>
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#pc-key'>1. パソコンを使いやすくするために</Link>} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#change-key'>2. Change Key</Link>} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#powertoys'>3. PowerToys</Link>} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#autohotkey'>4. AutoHotkey</Link>} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#summary'>5. まとめ</Link>} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#vscode-vim'>番外編. Vscode Vim</Link>} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemText primary={<Link href='#chrome-vimium'>番外編. Chrome Vimium</Link>} />
+                    </ListItem>
+                </List>
             </Box>
 
-            {/* {% include 'blog/article.html' %} は React コンポーネント内で直接インクルードできないため、
-          もし `article.html` の内容も表示したい場合は、別途 React コンポーネントに変換し、
-          ここでインポートして使用する必要があります。 */}
-
-            <Box style={containerStyle}>
+            <Box sx={{ fontFamily: 'Arial, sans-serif', lineHeight: 1.6, padding: 3 }}>
+                <Divider />
                 <Typography variant="h2" id='pc-key'>1. パソコンを使いやすくするために</Typography>
-                <Typography component="p">皆さんショートカットキーを使用していますか？パソコンのショートカットキーを使用することで以下のような操作が可能になります.</Typography>
 
                 <Typography component="p">
-                    後述しますが,キーバインドを変更した場合の優先順位は以下の通りです。<br />
-                    Change Key &gt; PowerToys &gt; AutoHotkey &gt; ソフトウェア
+                    ショートカットキーを使用していますか？パソコンのキーバインドを変更することでほとんどの操作をマウスを使用せずに終わらすことができます。
+                    以下のGIFの操作はすべてキーボードだけで行われています。
                 </Typography>
 
-
-                <Typography variant="h2" id='change-key'>2. Change Key</Typography>
-                <Typography component="p"><a href="https://forest.watch.impress.co.jp/library/software/changekey/">Change Key</a>を使用すると,CtrlキーとCapsLockキーを入れ替えられます.欠点として,レジストリを操作するため,社内のPCなどでは使用できない可能性があります.また,キーに対しては再登録を行えるのですが,ショートカットキーに対しては再登録などができません.</Typography>
-
-                <Typography variant="h2" id='powertoys'>3. PowerToys</Typography>
-                <Typography component="p"><a href="https://learn.microsoft.com/ja-jp/windows/powertoys/install">PowerToys</a>を使用すると,ショートカットキーの再登録ができます.また,Microsoftが提供しているため,安心してインストールできます.注意点として,PowerToysでCtrlキーとCapsLockキーを入れ替えると動作が不安定になるため,Change Keyまたはレジストリを直接書き換えることをおすすめします.</Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+                    <img src={key_gif} alt='表示できません' />
+                </Box>
 
                 <Typography component="p">
-                    豆知識：Ctrl+[ で日本語配列・英語配列キーボードどちらもEscキーと似たような動作をしますが,Escキーと完全に同じ動作ではないため,別途登録することをおすすめします.
+                    後で説明しますが、キーバインドを変更した際の優先順位は以下の通りです。<br />
+                    Change Key &gt; PowerToys &gt; AutoHotkey &gt; ソフトウェア
+                    <br />
+                    <br />
+                </Typography>
+
+                <Typography variant="h2" id='change-key'>2. Change Key</Typography>
+                <Typography component="p">
+                    <Link href="https://forest.watch.impress.co.jp/library/software/changekey/" target="_blank" rel="noopener">
+                        Change Key
+                    </Link>を使用すると、CtrlキーとCapsLockキーを入れ替えられます。Ctrlは使用頻度が高いわりに押しにくい場所にあり、逆にCapsLockはほとんど使用しない割に小指で押せるところにあり一番に変更すべきキーとして上げられます。<br /><br />
+                    Change Keyの欠点として、レジストリを操作するため、社内PCなどでは使用できない可能性とショートカットキーに対しての変更ができないところです。
+                    <br />
+                    例えば、右のAlt+Hを押しているときだけ、Windows+&lt;の動作をさせるなど...(開いているwindowの場所を変更する)。
+                    <br />
+                    <br />
+                </Typography>
+
+                <Typography variant="h2" id='powertoys'>3. PowerToys</Typography>
+                <Typography component="p">
+                    <Link href="https://learn.microsoft.com/ja-jp/windows/powertoys/install" target="_blank" rel="noopener">
+                        PowerToys
+                    </Link>を使用すると、ショートカットキーの再登録ができます。上記の弱点を補うために私は使用しています。また、Microsoftが提供しているため、安心してインストールできます。注意点として、PowerToysでCtrlキーとCapsLockキーを入れ替えることができますが、動作が不安定になるため、CtrlとCapsLockの入れ替えにおいてはChange Keyまたはレジストリを直接書き換えることをおすすめします。
+                    <br />
+                    <br />
+                </Typography>
+
+                <Typography component="p">
+                    ※Ctrl+[ で日本語配列・英語配列キーボードどちらもEscキーと似たような動作をしますが、Escキーと完全に同じ動作ではないため、PowerToysで変更することをおすすめします.
                 </Typography>
 
                 <Typography variant="h2" id='autohotkey'>4. AutoHotkey</Typography>
-                <Typography component="p"><a href="https://www.autohotkey.com/">AutoHotkey</a>はプログラミング言語であり,上記ツールよりも自由度の高い設定を行えます.しかし,Windows 11との相性が悪いのか,動作が一番安定しません.それでも,マウスの動作制御,キー,ショートカットキーの入れ替えなどが可能で,AutoHotkeyでできないことはほとんどないと言えます.</Typography>
+                <Typography component="p">
+                    <Link href="https://www.autohotkey.com/" target="_blank" rel="noopener">
+                        AutoHotkey
+                    </Link>はプログラミング言語であり、上記ツールよりも自由度の高い設定を行えます.しかし、Windows 11との相性が悪いのか、動作が一番安定しません.それでも、マウスの動作制御、キー、ショートカットキーの入れ替えなどが可能で、AutoHotkeyでできないことはほとんどないと言えます.
+                    <br />
+                    <br />
+                </Typography>
 
                 <Typography variant="h2" id='summary'>5. まとめ</Typography>
                 <Typography component="p">
@@ -55,16 +95,30 @@ export const keybindings: React.FC = () => {
                 <Typography component="p">
                     キーバインドを変更した場合の優先順位<br />
                     Change Key &gt; PowerToys &gt; AutoHotkey &gt; ソフトウェア
+                    <br />
+                    <br />
                 </Typography>
 
                 <Typography variant="h2" id='vscode-vim'>番外編. Vscode Vim</Typography>
-                <Typography component="p">Vscodeの拡張機能にVimがあります.Vimとはエディターの一種で,キーボードだけでカーソル移動やファイル編集が可能になります.Vimをインストールすることでプログラミング中もホームポジションを崩さずに操作することが可能になります.</Typography>
+                <Typography component="p">
+                    Vscodeの拡張機能にVimがあります。Vimとはエディターの一種で、キーボードだけでカーソル移動やファイル編集が可能になります。Vimをインストールすることでプログラミング中もホームポジションやマウスを触らずに操作することが可能になります。
+                    <br />
+                    <br />
+                </Typography>
 
                 <Typography variant="h2" id='chrome-vimium'>番外編. Chrome Vimium</Typography>
-                <Typography component="p"><a href="https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=ja">Vimium</a>は,Google Chromeに対してVimのような操作を提供する拡張機能です.Shift + j, Shift + kでタブの移動が可能ですが,PDFを開くとタブの移動が機能しません.そのため,PowerToysでShift + j, Shift + kをCtrl + Tab, Ctrl + Shift + Tabに再登録することをおすすめします。<a href="https://support.google.com/chrome/answer/157179?hl=ja&co=GENIE.Platform%3DDesktop#zippy=%2C%E3%82%BF%E3%83%96%E3%81%A8%E3%82%A6%E3%82%A3%E3%83%B3%E3%83%89%E3%82%A6%E3%81%AE%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88">Chromeのショートカットキー</a></Typography>
+                <Typography component="p">
+                    <Link href="https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=ja" target="_blank" rel="noopener">
+                        Vimium
+                    </Link>は、Google Chromeに対してVimのような操作を提供する拡張機能です。Shift + j、 Shift + kでタブの移動が可能ですが、PDFを開くとVimuimが機能しません。そのため、PowerToysでShift + j、 Shift + k(Vimiumの機能)をCtrl + Tab、 Ctrl + Shift + Tab(Chromeの機能)に再登録することをおすすめします。<br />
+                    <Link href="https://support.google.com/chrome/answer/157179?hl=ja&co=GENIE.Platform%3DDesktop#zippy=%2C%E3%82%BF%E3%83%96%E3%81%A8%E3%82%A6%E3%82%A3%E3%83%B3%E3%83%89%E3%82%A6%E3%81%AE%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88" target="_blank" rel="noopener">
+                        Chromeのショートカットキー
+                    </Link>
+                </Typography>
             </Box>
 
-            {/* {% include 'blog/comments.html' %} は同様に、必要であれば React コンポーネントに変換して使用します。 */}
-        </Box>
+        </Container>
     );
 };
+
+export default Keybindings;
