@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { getBlogsList } from '../config/endpoint.tsx';
 import { Blog } from '../config/interface.tsx';
@@ -26,33 +25,31 @@ export const BlogList: React.FC = () => {
     };
 
     return (
-        <>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-                {blogs.map((blog) => (
-                    <li key={blog.id}>
-                        <Card sx={{ maxWidth: 345, margin: 3}}>
-                            <CardActionArea onClick={() => handleImageClick(blog.id)}>
-                                <CardMedia
-                                    component="img"
-                                    image={blog.img_path}
-                                    alt={blog.title}
-                                    style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5">
-                                        {blog.title}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                        Created at: {blog.created_at}<br />
-                                        TSX PATH: {blog.tsx_path}<br />
-                                        IMG PATH: {blog.img_path}<br />
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </li>
-                ))}
-            </ul>
-        </>
+        <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexWrap: 'wrap' }}>
+            {blogs.map((blog) => (
+                <li key={blog.id} style={{ width: 'calc(100% / 3)', padding: '0 8px', boxSizing: 'border-box' }}>
+                    <Card sx={{ margin: 3 }}>
+                        <CardActionArea onClick={() => handleImageClick(blog.id)}>
+                            <CardMedia
+                                component="img"
+                                image={blog.img_path}
+                                alt={blog.title}
+                                sx={{ maxWidth: '100%', height: 'auto', cursor: 'pointer' }}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5">
+                                    {blog.title}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Created at: {blog.created_at}<br />
+                                    TSX PATH: {blog.tsx_path}<br />
+                                    IMG PATH: {blog.img_path}<br />
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </li>
+            ))}
+        </ul>
     );
 };
