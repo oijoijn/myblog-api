@@ -5,21 +5,20 @@ import { CookiesContext } from '../providers/CookiesContext';
 import { getBlogsCommentsEdit, putBlogsCommentsEdit, deleteBlogsCommentsEdit } from '../config/endpoint';
 import axios from 'axios';
 
-export const Commentsedit = () => {
+export const useCommentsedit = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { cookies } = useContext(CookiesContext);
     const id = location.state?.id;
-    const [blog, setBlog] = useState<CommentEditResponse | null>(null);
+    const [blog, setBlog] = useState<CommentEditResponse>();
     const [commentText, setCommentText] = useState('');
     const [isSaving, setIsSaving] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         const fetchComments = async () => {
-            setIsLoading(true);
             try {
                 const response = await getBlogsCommentsEdit(cookies.access_token, id);
                 setBlog(response);
@@ -27,18 +26,13 @@ export const Commentsedit = () => {
             } catch (error) {
                 console.error('コメントの取得に失敗しました:', error);
                 alert('コメントの取得に失敗しました。');
-                navigate('/commentslist');
-            } finally {
-                setIsLoading(false);
             }
         };
 
         if (id) {
             fetchComments();
-        } else {
-            navigate('/');
         }
-    }, [cookies.access_token, id, navigate]);
+    }, [cookies.access_token, id]);
 
     const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCommentText(e.target.value);
@@ -47,9 +41,10 @@ export const Commentsedit = () => {
     const handleUpdateComment = async () => {
         setIsSaving(true);
         setErrorMessage('');
+        setSuccessMessage('');
         try {
             await putBlogsCommentsEdit(cookies.access_token, id, commentText);
-            navigate('/commentslist');
+            setSuccessMessage('コメントを更新しました！');
         } catch (error) {
             console.error('コメントの更新に失敗しました:', error);
             if (axios.isAxiosError(error)) {
@@ -65,9 +60,12 @@ export const Commentsedit = () => {
     const handleDeleteComment = async () => {
         setIsDeleting(true);
         setErrorMessage('');
+        setSuccessMessage('');
         try {
             await deleteBlogsCommentsEdit(cookies.access_token, id);
-            navigate('/commentslist');
+            setSuccessMessage('コメントを削除しました！');
+            // 削除成功後、適切なページにリダイレクトするなどの処理を追加できます
+            navigate(-1); // 一つ前のページに戻る例
         } catch (error) {
             console.error('コメントの削除に失敗しました:', error);
             if (axios.isAxiosError(error)) {
@@ -79,45 +77,7 @@ export const Commentsedit = () => {
             setIsDeleting(false);
         }
     };
-
-    if (isLoading) {
-        return <p>コメントを読み込み中...</p>;
-    }
-
-    if (!blog) {
-        return <p>コメントが見つかりません。</p>;
-    }
-
     return (
-        <>
-
-            <Box
-                marginBottom={2}
-                padding={2}
-                border={1}
-                borderColor="grey.500"
-                display="flex"
-                flexDirection="column"
-            >
-                <h1>コメント編集 (ID: {id})</h1>
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-
-                <label htmlFor="comment">コメント:</label>
-                <textarea
-                    id="comment"
-                    value={commentText}
-                    onChange={handleCommentChange}
-                    style={{ width: '100%', minHeight: '100px' }}
-                />
-
-                <button onClick={handleUpdateComment} disabled={isSaving}>
-                    {isSaving ? '更新中...' : '更新'}
-                </button>
-
-                <button onClick={handleDeleteComment} disabled={isDeleting}>
-                    {isDeleting ? '削除中...' : '削除'}
-                </button>
-            </Box>
-        </>
-    );
-};
+        { handleCommentChange, handleUpdateComment, handleDeleteComment }
+    )
+}

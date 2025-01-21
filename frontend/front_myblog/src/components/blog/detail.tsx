@@ -48,6 +48,7 @@ export const BlogDetail: React.FC = () => {
             <Typography variant="h6" gutterBottom align="center">
                 作成日 : {blog.created_at}
             </Typography>
+
             {DynamicContent && (
                 <Suspense fallback={<CircularProgress />}>
                     {React.createElement(DynamicContent)}
