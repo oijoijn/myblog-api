@@ -48,7 +48,6 @@ class CommentCreateAPI(generics.CreateAPIView):
 
 class CommentEditAPI(generics.RetrieveUpdateDestroyAPIView):
     '''
-    todo: permissionsはこれでいいのか
     HTTP Methods: GET, PUT, PATCH, DELETE
     Permissions: LoginUser
     Operation: 特定のコメントを取得または編集
@@ -56,6 +55,7 @@ class CommentEditAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.BlogAndComment.objects.all()
     serializer_class = serializers.BlogAndCommentSerializer
     permission_classes = [permissions.IsAuthenticated]
+    lookup_field = 'pk'  # 明示的に主キーを指定
 
     def get_queryset(self):
         # ログインユーザーが所有するコメントのみを対象とする
