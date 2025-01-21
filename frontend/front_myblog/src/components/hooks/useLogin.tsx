@@ -22,11 +22,10 @@ export const useLogin = () => {
 
     const onClickLogin = async (username: string, password: string) => {
         try {
-            const response = await postApiToken({
+            postApiToken({
                 username: username,
                 password: password,
             });
-            console.log('Login successful:', response);
             login(username, password)
             setLoginUser({ username: username })
             navigate('/');
