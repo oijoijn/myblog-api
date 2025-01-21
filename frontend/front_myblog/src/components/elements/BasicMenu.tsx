@@ -5,7 +5,7 @@ import { useMenu } from '../hooks/useMenu';
 
 export default function BasicMenu() {
     const
-        { loginUser, anchorEl, open, handleClick, handleClose, handleClickLogout, handleClickSignup, handleClickLogin }
+        { loginUser, anchorEl, open, handleClick, handleClose, handleClickLogout, handleClickSignup, handleClickLogin, handleClickCommentlist }
             = useMenu()
 
     return (
@@ -29,10 +29,12 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
+                {loginUser.username && (
+                    <MenuItem onClick={handleClickCommentlist}>アカウント情報</MenuItem>
+                )}
                 <MenuItem onClick={handleClickSignup}>新規登録</MenuItem>
                 <MenuItem onClick={handleClickLogin}>ログイン</MenuItem>
                 <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>
-                {/* <MenuItem onClick={handlecookie}>cookie</MenuItem> */}
             </Menu>
         </div>
     );

@@ -29,7 +29,11 @@ export const useMenu = () => {
         navigate('/login')
         setAnchorEl(null);
     }
+    const handleClickCommentlist = () => {
+        navigate('/commentslist')
+        setAnchorEl(null);
+    }
     return (
-        { loginUser, anchorEl, open, handleClick, handleClose, handleClickLogout, handleClickSignup, handleClickLogin }
+        { loginUser, anchorEl, open, handleClick, handleClose, handleClickLogout, handleClickSignup, handleClickLogin, handleClickCommentlist }
     )
 }
