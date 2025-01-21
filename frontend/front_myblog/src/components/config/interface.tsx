@@ -42,6 +42,15 @@ export interface CommentList {
 
 export type CommentListResponse = CommentList[];
 
+export interface CommentsEdit {
+  blog: string;
+  owner: string;
+  comment: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type CommentEditResponse = CommentsEdit[];
 // account
 
 export interface Signup {

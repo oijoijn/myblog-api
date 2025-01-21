@@ -21,6 +21,7 @@ export const Commentslist = () => {
             <Typography variant="body1">{comment.comment}</Typography>
             <Typography variant="caption">投稿日: {comment.created_at}</Typography>
           </div>
+          {comment.blog}
           <Box mt="auto" textAlign="right">
             <Button variant="contained" onClick={() => handleChange(comment.blog)}>
               編集する
