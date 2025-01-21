@@ -29,7 +29,7 @@ class BlogAndCommentSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
     class Meta:
         model = models.BlogAndComment
-        fields = ['blog', 'owner', 'comment', 'created_at', 'updated_at']
+        fields = ['pk','blog', 'owner', 'comment', 'created_at', 'updated_at']
         read_only_fields = ['blog', 'owner']
 
     def get_owner(self, obj):
