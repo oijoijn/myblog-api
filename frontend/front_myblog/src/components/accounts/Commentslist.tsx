@@ -6,29 +6,31 @@ export const Commentslist = () => {
 
   return (
     <>
-      {blog.map((comment) => (
-        <Box
-          key={comment.created_at}
-          marginBottom={2}
-          padding={2}
-          border={1}
-          borderColor="grey.500"
-          display="flex"
-          flexDirection="column"
-        >
-          <div>
-            <Typography variant="subtitle2">投稿者: {comment.owner}</Typography>
-            <Typography variant="body1">{comment.comment}</Typography>
-            <Typography variant="caption">投稿日: {comment.created_at}</Typography>
-          </div>
-          {comment.blog}
-          <Box mt="auto" textAlign="right">
-            <Button variant="contained" onClick={() => handleChange(comment.blog)}>
-              編集する
-            </Button>
+      <Box marginTop={4}>
+        {blog.map((blog) => (
+          <Box
+            key={blog.pk}
+            marginBottom={2}
+            padding={2}
+            border={1}
+            borderColor="grey.500"
+            display="flex"
+            flexDirection="column"
+          >
+            <div>
+              <Typography variant="subtitle2">投稿者: {blog.owner}</Typography>
+              <Typography variant="body1">{blog.comment}</Typography>
+              <Typography variant="caption">投稿日: {blog.created_at}</Typography>
+            </div>
+            <Box mt="auto" textAlign="right">
+              <Button variant="contained" onClick={() => handleChange(blog.pk)}>
+                編集する
+              </Button>
+            </Box>
           </Box>
-        </Box>
-      ))}
+        ))}
+      </Box>
     </>
+
   );
 };
