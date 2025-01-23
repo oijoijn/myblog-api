@@ -9,30 +9,35 @@ export const useCommentsedit = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { cookies } = useContext(CookiesContext);
-    const id = location.state?.id;
-    const [blog, setBlog] = useState<CommentEditResponse>();
+    const pk = location.state?.pk;
+    const [blog, setBlog] = useState<CommentEditResponse | null>(null);
     const [commentText, setCommentText] = useState('');
     const [isSaving, setIsSaving] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchComments = async () => {
+            setIsLoading(true);
             try {
-                const response = await getBlogsCommentsEdit(cookies.access_token, id);
+                const response = await getBlogsCommentsEdit(cookies.access_token, pk);
                 setBlog(response);
                 setCommentText(response.comment);
             } catch (error) {
                 console.error('コメントの取得に失敗しました:', error);
                 alert('コメントの取得に失敗しました。');
+                navigate('/commentslist');
+            } finally {
+                setIsLoading(false);
             }
         };
-
-        if (id) {
+        if (pk) {
             fetchComments();
+        } else {
+            navigate('/');
         }
-    }, [cookies.access_token, id]);
+    }, [cookies.access_token, pk, navigate]);
 
     const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCommentText(e.target.value);
@@ -41,10 +46,9 @@ export const useCommentsedit = () => {
     const handleUpdateComment = async () => {
         setIsSaving(true);
         setErrorMessage('');
-        setSuccessMessage('');
         try {
-            await putBlogsCommentsEdit(cookies.access_token, id, commentText);
-            setSuccessMessage('コメントを更新しました！');
+            await putBlogsCommentsEdit(cookies.access_token, pk, commentText);
+            navigate('/commentslist');
         } catch (error) {
             console.error('コメントの更新に失敗しました:', error);
             if (axios.isAxiosError(error)) {
@@ -60,12 +64,9 @@ export const useCommentsedit = () => {
     const handleDeleteComment = async () => {
         setIsDeleting(true);
         setErrorMessage('');
-        setSuccessMessage('');
         try {
-            await deleteBlogsCommentsEdit(cookies.access_token, id);
-            setSuccessMessage('コメントを削除しました！');
-            // 削除成功後、適切なページにリダイレクトするなどの処理を追加できます
-            navigate(-1); // 一つ前のページに戻る例
+            await deleteBlogsCommentsEdit(cookies.access_token, pk);
+            navigate('/commentslist');
         } catch (error) {
             console.error('コメントの削除に失敗しました:', error);
             if (axios.isAxiosError(error)) {
@@ -78,6 +79,6 @@ export const useCommentsedit = () => {
         }
     };
     return (
-        { handleCommentChange, handleUpdateComment, handleDeleteComment }
+        { blog, commentText, isSaving, isDeleting, errorMessage, isLoading, handleCommentChange, handleUpdateComment, handleDeleteComment }
     )
 }

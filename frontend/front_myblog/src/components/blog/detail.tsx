@@ -1,20 +1,12 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import { Typography, Box, CircularProgress, TextField, Button } from '@mui/material';
 import { useDetail } from '../hooks/useDetail';
 import React from 'react';
 
 export const BlogDetail: React.FC = () => {
-    const { blog, loading, error, DynamicContent, handlePostComment } = useDetail();
-    const [newComment, setNewComment] = useState(''); 
-
-    const handleSubmitComment = () => {
-        if (blog && newComment.trim()) {
-            handlePostComment(newComment);
-            setNewComment('');
-        } else if (!newComment.trim()) {
-            alert('コメントを入力してください。');
-        }
-    };
+    const
+        { blog, newComment, setNewComment, loading, error, DynamicContent, handleSubmitComment }
+            = useDetail();
 
     if (loading) {
         return (
@@ -59,7 +51,7 @@ export const BlogDetail: React.FC = () => {
                 コメント
             </Typography>
             {blog.comments.map((comment) => (
-                <Box key={comment.created_at} marginBottom={2} padding={2} border={1} borderColor="grey.500">
+                <Box key={comment.pk} marginBottom={2} padding={2} border={1} borderColor="grey.500">
                     <Typography variant="subtitle2">投稿者: {comment.owner}</Typography>
                     <Typography variant="body1">{comment.comment}</Typography>
                     <Typography variant="caption">投稿日: {comment.created_at}</Typography>

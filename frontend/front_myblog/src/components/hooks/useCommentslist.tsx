@@ -23,8 +23,8 @@ export const useCommentslist = () => {
         fetchComments();
     }, [cookies.access_token]);
 
-    const handleChange = (id: number) => {
-        navigate('/Commentsedit', { state: { id: id } })
+    const handleChange = (pk: number) => {
+        navigate('/Commentsedit', { state: { pk: pk } })
     }
 
     return { blog, handleChange };
