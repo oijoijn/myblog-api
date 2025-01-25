@@ -1,12 +1,10 @@
 import { useContext, useState } from 'react'
 import { postApiToken } from '../config/endpoint'
-import { LoginUserContext } from '../providers/LoginUserContext'
 import { useNavigate } from 'react-router-dom'
 import { LoginRequest } from '../config/interface'
 import { CookiesContext } from '../providers/CookiesContext'
 
 export const useLogin = () => {
-    const { setLoginUser } = useContext(LoginUserContext)
     const navigate = useNavigate();
     const { login } = useContext(CookiesContext)
 
@@ -27,7 +25,6 @@ export const useLogin = () => {
                 password: password,
             });
             login(username, password)
-            setLoginUser({ username: username })
             navigate('/');
         } catch (error) {
             console.error('Login failed:', error);
