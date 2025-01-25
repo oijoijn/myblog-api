@@ -1,12 +1,13 @@
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { Button, Menu } from '@mui/material';
 import { useMenu } from '../hooks/useMenu';
+import { useContext } from 'react';
+import { CookiesContext } from '../providers/CookiesContext';
 
 export default function BasicMenu() {
     const
-        { loginUser, anchorEl, open, handleClick, handleClose, handleClickLogout, handleClickSignup, handleClickLogin, handleClickCommentlist }
+        { anchorEl, open, handleClick, handleClose, renderMenuItems }
             = useMenu()
+    const { cookies } = useContext(CookiesContext)
 
     return (
         <div>
@@ -18,7 +19,7 @@ export default function BasicMenu() {
                 onClick={handleClick}
                 color='inherit'
             >
-                {loginUser.username || 'Menu'}
+                {cookies.UserName || 'Menu'}
             </Button>
             <Menu
                 id="basic-menu"
@@ -29,12 +30,7 @@ export default function BasicMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {loginUser.username && (
-                    <MenuItem onClick={handleClickCommentlist}>アカウント情報</MenuItem>
-                )}
-                <MenuItem onClick={handleClickSignup}>新規登録</MenuItem>
-                <MenuItem onClick={handleClickLogin}>ログイン</MenuItem>
-                <MenuItem onClick={handleClickLogout}>ログアウト</MenuItem>
+                {renderMenuItems()}
             </Menu>
         </div>
     );
