@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { LoginRequest, SignupRequest, CommentRequest } from './interface';
 
-
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_BASEURL,
   headers: {

@@ -16,14 +16,13 @@ export const useSignup = () => {
         const { name, value } = e.target
         setSignupUser({ ...SignupUser, [name]: value })
     }
-    const handleSignup = async (username:string, password1:string, password2:string) => {
+    const handleSignup = async (username: string, password1: string, password2: string) => {
         try {
-            const response = await postAccountsSignup({
+            await postAccountsSignup({
                 username: username,
                 password1: password1,
                 password2: password2,
             });
-            console.log('Sign successful:', response.username);
             login(username, password1)
             navigate('/');
         } catch (error) {
@@ -33,6 +32,6 @@ export const useSignup = () => {
     }
 
     return (
-        {SignupUser, handleChange, handleSignup }
+        { SignupUser, handleChange, handleSignup }
     )
 }
