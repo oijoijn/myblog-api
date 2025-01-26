@@ -1,4 +1,5 @@
 export interface BlogComment {
+    pk: number;
     blog: number;
     owner: string;
     comment: string;
@@ -32,7 +33,17 @@ export interface Blog_Detail {
 
 export type BlogDetailResponse = Blog_Detail;
 
+export type CommentListResponse = BlogComment[];
 
+export interface CommentsEdit {
+  blog: string;
+  owner: string;
+  comment: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type CommentEditResponse = CommentsEdit[];
 // account
 
 export interface Signup {

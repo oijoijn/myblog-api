@@ -79,14 +79,101 @@ export const postBlogsCommentsCreate = async (access_token: string, id: number, 
       data,
       {
         headers: {
-          Authorization: `Bearer ${access_token}`, 
+          Authorization: `Bearer ${access_token}`,
         },
       });
-    return response.data; 
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Error during login:', error.response?.data);
-      throw new Error(error.response?.data?.message || 'Login failed.');
+      throw new Error(error.response?.data?.message || 'post comment create failed.');
+    } else {
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred.');
+    }
+  }
+};
+
+export const getBlogsCommentsList = async (access_token: string) => {
+  try {
+    const response = await apiClient.get(
+      `blogs/user/comments/list/`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error during login:', error.response?.data);
+      throw new Error(error.response?.data?.message || 'get comment list failed.');
+    } else {
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred.');
+    }
+  }
+};
+
+export const getBlogsCommentsEdit = async (access_token: string, id: number) => {
+  try {
+    const response = await apiClient.get(
+      `blogs/${id}/comments/edit/`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error during login:', error.response?.data);
+      throw new Error(error.response?.data?.message || 'get comment edit failed.');
+    } else {
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred.');
+    }
+  }
+};
+
+export const putBlogsCommentsEdit = async (access_token: string, id: number, comment: string) => {
+  try {
+    const response = await apiClient.put(
+      `blogs/${id}/comments/edit/`,
+      { comment: comment },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error during login:', error.response?.data);
+      throw new Error(error.response?.data?.message || 'put comment edit failed.');
+    } else {
+      console.error('Unexpected error:', error);
+      throw new Error('An unexpected error occurred.');
+    }
+  }
+};
+
+export const deleteBlogsCommentsEdit = async (access_token: string, id: number) => {
+  try {
+    const response = await apiClient.delete(
+      `blogs/${id}/comments/edit/`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error during login:', error.response?.data);
+      throw new Error(error.response?.data?.message || 'delete comment edit failed.');
     } else {
       console.error('Unexpected error:', error);
       throw new Error('An unexpected error occurred.');
