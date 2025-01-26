@@ -1,9 +1,7 @@
-from rest_framework import views, permissions, generics, mixins, status
-from . import models, serializers, custompermissions
-from rest_framework.response import Response
+from rest_framework import permissions, generics
+from . import models, serializers 
 from django.views.generic import TemplateView
 from rest_framework.exceptions import NotFound
-
 
 class BlogListAPI(generics.ListAPIView):
     '''

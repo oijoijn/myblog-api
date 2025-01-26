@@ -1,13 +1,13 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
-    path('list/', views.BlogListAPI.as_view()),
-    path('user/comments/list/', views.CommentListAPI.as_view()),
-    path('<int:id>/detail/', views.BlogDetailAPI.as_view()),
-    path('<int:id>/comments/create/', views.CommentCreateAPI.as_view()),
-    path('<int:pk>/comments/edit/', views.CommentEditAPI.as_view()),
+app_name = 'blogs' 
 
-    # docs
-    path('docs/', views.DocsView.as_view(), name='swagger-ui'),
+urlpatterns = [
+    path('', views.BlogListAPI.as_view(), name='blog-list'),
+    path('<int:id>/', views.BlogDetailAPI.as_view(), name='blog-detail'),
+    path('<int:id>/comments/', views.CommentCreateAPI.as_view(), name='comment-create'),
+    path('comments/<int:pk>/', views.CommentEditAPI.as_view(), name='comment-edit'),
+    path('comments/', views.CommentListAPI.as_view(), name='comment-list'),
+    path('docs/', views.DocsView.as_view(), name='docs'),
 ]
