@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CommentEditResponse } from '../config/interface';
 import { CookiesContext } from '../providers/CookiesContext';
@@ -16,12 +16,13 @@ export const useCommentsedit = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const accessTokenRef = useRef(cookies.access_token);
 
     useEffect(() => {
         const fetchComments = async () => {
             setIsLoading(true);
             try {
-                const response = await getBlogsCommentsEdit(cookies.access_token, pk);
+                const response = await getBlogsCommentsEdit(accessTokenRef.current, pk);
                 setBlog(response);
                 setCommentText(response.comment);
             } catch (error) {
@@ -37,7 +38,7 @@ export const useCommentsedit = () => {
         } else {
             navigate('/');
         }
-    }, [cookies.access_token, pk, navigate]);
+    }, [pk, navigate]);
 
     const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCommentText(e.target.value);
