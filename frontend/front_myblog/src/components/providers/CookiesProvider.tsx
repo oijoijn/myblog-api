@@ -10,7 +10,6 @@ export const CookiesProvider = (props: { children: React.ReactNode }) => {
 
     const login = async (username: string, password: string) => {
         try {
-            console.log("CookiesProvider: username in login =", username, typeof username);
             const response = await postApiToken({ username, password });
             setCookie('access_token', response.access, { path: '/', secure: true, sameSite: 'strict' });
             setCookie('refresh_token', response.refresh, { path: '/', secure: true, sameSite: 'strict' });

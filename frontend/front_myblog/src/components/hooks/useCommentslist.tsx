@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { getBlogsCommentsList } from "../config/endpoint";
 import { CookiesContext } from "../providers/CookiesContext";
 import { CommentListResponse } from "../config/interface";
@@ -8,11 +8,12 @@ export const useCommentslist = () => {
     const { cookies } = useContext(CookiesContext);
     const [blog, setBlog] = useState<CommentListResponse>([]);
     const navigate = useNavigate()
+    const accessTokenRef = useRef(cookies.access_token);
 
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await getBlogsCommentsList(cookies.access_token);
+                const response = await getBlogsCommentsList(accessTokenRef.current);
                 setBlog(response);
             } catch (error) {
                 console.error('get commentlist failed:', error);
@@ -21,7 +22,7 @@ export const useCommentslist = () => {
         };
 
         fetchComments();
-    }, [cookies.access_token]);
+    }, []);
 
     const handleChange = (pk: number) => {
         navigate('/Commentsedit', { state: { pk: pk } })
