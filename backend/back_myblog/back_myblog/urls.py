@@ -11,8 +11,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('blogs/', include('blogs.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('blogs/', include('blogs.urls', namespace='blogs')), 
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('schema/', get_schema_view(
         version="1.0.0",
         public=True,
