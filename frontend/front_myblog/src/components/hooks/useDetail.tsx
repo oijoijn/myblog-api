@@ -11,6 +11,8 @@ export const useDetail = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [DynamicContent, setDynamicContent] = useState<React.ComponentType | null>(null);
+    const [newComment, setNewComment] = useState('');
+
 
     const fetchBlogDetail = async (blogId: number) => {
         setLoading(true);
@@ -56,10 +58,21 @@ export const useDetail = () => {
                 alert('コメントの投稿に成功しました。');
             } catch (error) {
                 console.error('Sign failed:', error);
-                alert('コメントの投稿に失敗しました。');
+                alert('コメントの投稿に失敗しました。ログインした上で投稿をお願いします。');
             }
         }
     };
 
-    return { blog, loading, error, DynamicContent, handlePostComment };
+    const handleSubmitComment = () => {
+        if (blog && newComment.trim()) {
+            handlePostComment(newComment);
+            setNewComment('');
+        } else if (!newComment.trim()) {
+            alert('コメントを入力してください。');
+        }
+    };
+
+    return (
+        { blog, newComment, setNewComment, loading, error, DynamicContent, handleSubmitComment }
+    )
 };
