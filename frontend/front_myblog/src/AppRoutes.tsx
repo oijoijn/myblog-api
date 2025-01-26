@@ -14,6 +14,7 @@ import { CookiesProvider } from '@/components/providers/CookiesProvider.tsx';
 export const AppRoutes = () => {
     return (
         <>
+
             <LoginUserProvider>
                 <CookiesProvider>
                     <Header />
