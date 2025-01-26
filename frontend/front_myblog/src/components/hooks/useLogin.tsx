@@ -20,7 +20,7 @@ export const useLogin = () => {
 
     const onClickLogin = async (username: string, password: string) => {
         try {
-            postApiToken({
+            await postApiToken({
                 username: username,
                 password: password,
             });
