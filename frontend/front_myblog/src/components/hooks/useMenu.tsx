@@ -14,9 +14,13 @@ export const useMenu = () => {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
+        const button = document.getElementById('basic-button');
+        button?.focus(); 
     };
+
     const handleClickLogout = () => {
         logout();
         navigate('/login')
