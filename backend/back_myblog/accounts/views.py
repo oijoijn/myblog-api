@@ -1,8 +1,6 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from . import models, serializers
-from blogs.models import BlogAndComment
-from blogs.serializers import BlogAndCommentSerializer
 
 class SignUpAPI(generics.CreateAPIView):
     '''
