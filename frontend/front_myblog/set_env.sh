@@ -1,15 +1,14 @@
 #!/bin/sh
 
 case "$1" in
-  "build")
-    docker compose build 
-    docker compose up -d
-    ;;
   "runr")
     npm run dev
     ;;
+  "build")
+    npm run build
+    ;;
   *)
-    echo "Usage: $0 {build|runr}"
+    echo "Usage: $0 {runr|build}"
     exit 1
     ;;
 esac
