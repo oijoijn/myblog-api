@@ -12,6 +12,7 @@ media/
 venv/
 env/
 migrations/
+read_env.py
 ./backend/back_myblog/back_myblog/read_env.py
 
 # エディタ/IDE
