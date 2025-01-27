@@ -14,6 +14,8 @@ env/
 migrations/
 read_env.py
 ./backend/back_myblog/back_myblog/read_env.py
+staticfiles/
+*.zip
 
 # エディタ/IDE
 .vscode/
