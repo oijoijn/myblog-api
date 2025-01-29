@@ -15,8 +15,8 @@ case "$1" in
     rm -rf blogs/migrations/
     ;;
   "rund")
-    python ./manage.py runserver 0.0.0.0:8000
-    # python -m uvicorn back_myblog.asgi:application --host 0.0.0.0 --port 8000
+    # python ./manage.py runserver 0.0.0.0:8000
+    python -m uvicorn back_myblog.asgi:application --host 0.0.0.0 --port 8000
     ;;
   "sc")
     python manage.py collectstatic

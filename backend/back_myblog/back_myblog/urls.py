@@ -7,6 +7,9 @@ from rest_framework_simplejwt.views import (
 from rest_framework.schemas import get_schema_view
 from rest_framework import permissions
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -19,4 +22,4 @@ urlpatterns = [
         permission_classes=[permissions.AllowAny],
         authentication_classes=[],
     ), name='schema'),  
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
