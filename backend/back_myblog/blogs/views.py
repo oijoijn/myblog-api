@@ -36,7 +36,6 @@ class CommentCreateAPI(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        print(f'request:{self.request}')
         try:
             blog = models.Blog.objects.get(id=self.kwargs['id'])  # URLからidを取得
             serializer.save(blog=blog, owner=self.request.user)  # blogとownerを保存

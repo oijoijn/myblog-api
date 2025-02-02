@@ -1,11 +1,12 @@
+urlの変更
+apigatewa のオリジンの変更
 ## 1 myblog-api
 #### 1 目的
         面白そうな技術や触ったことのある技術を紹介するサイト
         元のサイトhttps://github.com/oijoijn/myblog
         myblogをフロントエンド、バックエンドに分ける.
 #### 2 URL
-        元のURL
-        https://technologicalexploration.pythonanywhere.com/blog/
+        https://tech-exploration.com/
 
 #### 4 機能要件
 - **ユーザー管理**
@@ -57,7 +58,7 @@
 |execr| フロントエンドコンテナ（myblog-api-frontend-1）に/bin/shでアクセスする|
 |down|すべてのコンテナを停止し、削除| 
 
-| backend 内     |    bash set_env.sh <コマンド> |
+| backend コンテナ内     |    bash set_env.sh <コマンド> |
 |---------------|---------------|
 | mks |マイグレーションファイルを作成し、データベースを最新の状態に更新|
 | rms |データベースとマイグレーションファイルを削除|
@@ -65,14 +66,14 @@
 | sc |静的ファイルを収集してSTATIC_ROOTに保存|
 | c |管理者ユーザーを作成|
 
-| frontend 内     |    sh set_env.sh <コマンド> |
+| frontend コンテナ内   |    sh set_env.sh <コマンド> |
 |---------------|---------------|
 | runr |開発サーバーを起動|
 | build |デプロイ用にファイルを収集|
 
 ## **4 AWS**
 
-本プロジェクトでは、AWSを活用してインフラを構築しています。
+本プロジェクトでは、AWSを活用してインフラを構築する。
 
 ### **1. ドメインの取得**
 - **サービス**: お名前ドットコム  
@@ -105,6 +106,12 @@
 ---
 
 ### **6. バックエンド**
-- **サービス**: AWS Elastic Beanstalk  
+- **サービス**: Amazon API Gateway
+- **概要**: S3とEC2の通信の窓口。  
+
+---
+
+### **7. バックエンド**
+- **サービス**: Amazon EC2
 - **概要**: Django REST Frameworkのアプリケーションをデプロイ。  
 ---
