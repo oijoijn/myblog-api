@@ -1,18 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBlogDetail, postBlogsCommentsCreate } from '../config/endpoint.tsx';
 import { BlogDetailResponse, CommentRequest } from '../config/interface.tsx';
 import { CookiesContext } from '../providers/CookiesContext.tsx';
 
 export const useDetail = () => {
-    const { cookies } = useContext(CookiesContext)
+    const { cookies } = useContext(CookiesContext);
     const { id } = useParams<{ id: string }>();
     const [blog, setBlog] = useState<BlogDetailResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [DynamicContent, setDynamicContent] = useState<React.ComponentType | null>(null);
     const [newComment, setNewComment] = useState('');
-
 
     const fetchBlogDetail = async (blogId: number) => {
         setLoading(true);
@@ -36,23 +35,33 @@ export const useDetail = () => {
         }
     }, [id]);
 
+
+    const modulesRef = useRef(import.meta.glob('/src/templates/**/*.tsx'));
+
     useEffect(() => {
         if (blog?.tsx_path) {
-            import(/* @vite-ignore */ `/src/templates/${blog.tsx_path}`)
-                .then((module) => {
-                    setDynamicContent(() => module.default);
-                })
-                .catch((error) => {
-                    console.error("Failed to load dynamic content:", error);
-                    setError("Failed to load blog content.");
-                });
+            const modulePath = `/src/templates${blog.tsx_path}`;
+            if (modulesRef.current[modulePath]) {
+                (modulesRef.current[modulePath] as () => Promise<{ default: React.ComponentType }>)()
+                    .then((module) => {
+                        setDynamicContent(() => module.default);
+                    })
+                    .catch((error) => {
+                        console.error("Failed to load dynamic content:", error);
+                        setError("Failed to load blog content.");
+                    });
+            } else {
+                console.error("Module not found:", modulePath);
+                setError("Module not found.");
+            }
         }
     }, [blog?.tsx_path]);
+
 
     const handlePostComment = async (comment: string) => {
         if (id) {
             try {
-                const commentData: CommentRequest = { comment: comment };
+                const commentData: CommentRequest = { comment };
                 await postBlogsCommentsCreate(cookies.access_token, parseInt(id, 10), commentData);
                 fetchBlogDetail(parseInt(id, 10));
                 alert('コメントの投稿に成功しました。');
@@ -72,7 +81,5 @@ export const useDetail = () => {
         }
     };
 
-    return (
-        { blog, newComment, setNewComment, loading, error, DynamicContent, handleSubmitComment }
-    )
+    return { blog, newComment, setNewComment, loading, error, DynamicContent, handleSubmitComment };
 };
