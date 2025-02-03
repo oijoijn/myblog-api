@@ -11,8 +11,8 @@ services:
       # - ./backend/nginx:/etc/nginx
     stdin_open: true
     tty: true
-    env_file:
-      - ./backend/back_myblog/.env
+    # env_file:
+    #   - ./backend/back_myblog/.env
     depends_on:
       - postgres
 
@@ -41,8 +41,8 @@ services:
       POSTGRES_DB: "${POSTGRES_DB}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - ./.env
+    # env_file:
+    #   - ./.env
 
 volumes:
   postgres_data:

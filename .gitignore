@@ -12,10 +12,11 @@ media/
 venv/
 env/
 migrations/
-read_env.py
+read.py
 ./backend/back_myblog/back_myblog/read_env.py
 staticfiles/
-*.zip
+static/
+backend.zip
 
 # エディタ/IDE
 .vscode/

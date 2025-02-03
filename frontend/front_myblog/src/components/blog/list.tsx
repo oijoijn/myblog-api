@@ -37,13 +37,13 @@ export const BlogList: React.FC = () => {
                                 sx={{ maxWidth: '100%', height: 'auto', cursor: 'pointer' }}
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h5">
+                                <Typography gutterBottom variant="h5" align="center">
                                     {blog.title}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                <Typography variant="body2"  align="center" sx={{ color: 'text.secondary' }}>
                                     Created at: {blog.created_at}<br />
-                                    TSX PATH: {blog.tsx_path}<br />
-                                    IMG PATH: {blog.img_path}<br />
+                                    {/* TSX PATH: {blog.tsx_path}<br />
+                                    IMG PATH: {blog.img_path}<br /> */}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
