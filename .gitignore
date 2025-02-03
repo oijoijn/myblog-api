@@ -15,6 +15,7 @@ migrations/
 read.py
 ./backend/back_myblog/back_myblog/read_env.py
 staticfiles/
+static/
 *.zip
 
 # エディタ/IDE
