@@ -33,8 +33,8 @@ export const BlogDetail: React.FC = () => {
     }
 
     return (
-        <Box padding={3}>
-            <Typography variant="h2" gutterBottom align="center">
+        <Box padding={3} maxWidth="800px" margin="auto">
+            <Typography variant="h4" gutterBottom align="center">
                 {blog.title}
             </Typography>
             <Typography variant="h6" gutterBottom align="center">
@@ -58,7 +58,7 @@ export const BlogDetail: React.FC = () => {
                 </Box>
             ))}
 
-            <Box mt={3}>
+            <Box mt={3} width="100%">
                 <TextField
                     label="コメント"
                     multiline
