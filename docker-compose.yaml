@@ -8,7 +8,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend/back_myblog:/workspace
-      # - ./backend/nginx:/etc/nginx
+      - ./backend/nginx:/etc/nginx
     stdin_open: true
     tty: true
     # env_file:

@@ -15,6 +15,7 @@ FROM base AS production
 
 WORKDIR /workspace/front_myblog
 RUN apk add --no-cache tree
+
 # COPY --from=base /usr/local /usr/local
 COPY --from=dev /workspace/front_myblog/dist ./dist
 EXPOSE 3000
