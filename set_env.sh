@@ -2,7 +2,7 @@
 
 case "$1" in
   "buildno")
-    docker compose build --no-cache
+    docker compose build --no-cache 
     docker compose up -d
     ;;
   "build")
@@ -22,7 +22,7 @@ case "$1" in
     docker compose down
     ;;
   *)
-    echo "Usage: $0 {buildno|build|up|exed|exer|down}"
+    echo "Usage: $0 {buildno|build|up|execd|execr|down}"
     exit 1
     ;;
 esac

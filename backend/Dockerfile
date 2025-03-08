@@ -7,8 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     tzdata \
     sudo \
+    procps  \
     tree \
-    # nginx \
+    nginx \
     vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -29,5 +30,12 @@ FROM base AS runtime
 
 # 作業ディレクトリを設定
 WORKDIR /workspace
-
 COPY --from=build /workspace/back_myblog /workspace/back_myblog
+
+# userの作成
+RUN useradd -ms /bin/bash so \
+    && usermod -aG sudo so \
+    && echo "so ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+    && chown -R so:so /workspace
+
+USER so

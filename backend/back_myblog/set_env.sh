@@ -14,9 +14,14 @@ case "$1" in
     rm -rf accounts/migrations/
     rm -rf blogs/migrations/
     ;;
+  "kill")
+    pkill gunicorn
+    ;;
   "rund")
     # python ./manage.py runserver 0.0.0.0:8000
-    python -m uvicorn back_myblog.asgi:application --host 0.0.0.0 --port 8000
+    # python -m uvicorn back_myblog.asgi:application --host 0.0.0.0 --port 8000
+    gunicorn --bind 127.0.0.1:8000 back_myblog.wsgi -t 10 &
+    sudo nginx -g "daemon off;"
     ;;
   "sc")
     python manage.py collectstatic
