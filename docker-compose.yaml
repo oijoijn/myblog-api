@@ -22,7 +22,6 @@ services:
       - NODE_ENV=development
     volumes:
       - ./frontend:/workspace
-      - /workspace/node_modules
     ports:
       - "3000:3000"
     stdin_open: true
